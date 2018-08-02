@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Psychic Game</title>
+</head>
+<!-- I'm coding everything in here instead of separate css/js files simply because I'm already doing that for the hangman game, and this one is simple and has no styling -->
+<body>
+
+    <h1>The Psychic Game</h1>
+    <p>Guess what letter I'm thinking of...</p>
+    <p id="winsText">Wins: 0</p>
+    <p id="lossesText">Losses: 0</p>
+    <p id="guessesLeftText">Guesses left: 9</p>
+    <p id="guessesArrayText">Your guesses so far:</p>
+
+    <script type="text/javascript">
+
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 9;
+        var guessesArray = [];
+        var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+        var compChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+
+        document.onkeydown = function(event) {
+
+            var keyPressed = event.key.toLowerCase();
+            guessesArray.push(" " + keyPressed);
+
+            if (keyPressed === compChoice) {
+                wins++;
+                guessesLeft = 9;
+                guessesArray = [];
+                compChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+            }
+            
+            else {
+                guessesLeft--;
+                if (guessesLeft === 0) {
+                    losses++;
+                    guessesLeft = 9;
+                    guessesArray = [];
+                    compChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+                };
+            };
+
+            
+            document.querySelector("#winsText").innerHTML = "Wins: " + wins;
+            document.querySelector("#lossesText").innerHTML = "Losses: " + losses;
+            document.querySelector("#guessesLeftText").innerHTML = "Guesses left: " + guessesLeft;
+            document.querySelector("#guessesArrayText").innerHTML = "Your guesses so far: " + guessesArray;
+
+        };
+
+    
+    </script>
+
+</body>
+
+</html>
